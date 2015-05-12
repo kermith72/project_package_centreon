@@ -367,6 +367,7 @@ install(
 )
 
 # project package centreon
+set (CPACK_PACKAGE_NAME "centreon-clib")
 set (CPACK_PACKAGE_FILE_NAME centreon-clib-${CLIB_VERSION})
 set (CPACK_GENERATOR "TGZ")
 set (CPACK_PACKAGE_VERSION_MAJOR ${CLIB_MAJOR})
