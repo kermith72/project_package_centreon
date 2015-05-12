@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# Abort if any command returns an error value
+set -e
+
+case "$1" in
+    configure)
+	if [ "@GROUP@" != "root" ]; then
+	    groupadd -f "@GROUP@"
+	fi
+
+	if [ "@USER@" != "root" ]; then
+	    useradd -d "$(dirname @PID_FILE@)" -M -N -G "@GROUP@" "@USER@"
+	fi
+
+	if [ -f "/etc/init.d/centengine" ]; then
+	    update-rc.d centengine defaults
+	fi
+
+        if [ -d "/usr/lib/nagios/plugins" ]; then
+            chown @USER@:@GROUP@ /usr/lib/nagios/plugins/*
+        fi
+
+        if [ -f "/usr/lib/nagios/plugins/check_dhcp" ]; then
+            chown root /usr/lib/nagios/plugins/check_dhcp
+            chmod u+s /usr/lib/nagios/plugins/check_dhcp
+        fi
+
+        if [ -f "/usr/lib/nagios/plugins/check_icmp" ]; then
+            chown root /usr/lib/nagios/plugins/check_icmp
+            chmod u+s /usr/lib/nagios/plugins/check_icmp
+        fi
+
+	;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+	;;
+
+    *)
+	echo "$0: called with unknown argument" 1>&2
+	exit 0
+	;;
+esac
+
+exit 0
