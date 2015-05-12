@@ -1,2 +1,2 @@
-# project_package_cetreon
+# project_package_centreon
 Project to create Debian packages for Centreon
