@@ -2,15 +2,15 @@
 
 In order to install package Centreon-Engine
 
-1. Install pre-requisites
+1 Install pre-requisites
 
 apt-get install libcgsi-gsoap-dev zlib1g-dev libssl-dev libxerces-c-dev -y
 
-2. Unzip files
+2 Unzip files
 
 tar xzf centreon-engine-1.4.11.tar.gz
 
-3. copy files from github
+3 copy files from github
 
 centreon-engine-1.4.11/script/deb/postinst.in
 
@@ -18,7 +18,7 @@ centreon-engine-1.4.11/conf/resource.cfg.in
 
 centreon-engine-1.4.11/build/CMakeLists
 
-4. configure
+4 configure
 
 ```
 cmake  \
@@ -39,7 +39,7 @@ cmake  \
     -DWITH_WEBSERVICE=1 .
 ```
 
-5. create package
+5 create package
 
 make package
 
