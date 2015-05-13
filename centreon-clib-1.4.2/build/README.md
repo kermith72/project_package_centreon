@@ -1,18 +1,34 @@
-###################################################################################################
-#
-#           Project Package Centreon
+In order to install package Centreon-clib
 
-# configure
+1. Install pre-requisites
 
-cmake \
+apt-get install build-essential cmake -y
+
+2. Unzip files
+
+tar xzf centreon-clib-1.4.2.tar.gz
+
+3. copy files from github
+
+
+centreon-clib-1.4.2/build/CMakeLists.txt
+
+4. configure
+
+```
+cmake  \
        -DWITH_TESTING=0 \
        -DWITH_PREFIX=/usr  \
        -DWITH_SHARED_LIB=1 \
        -DWITH_STATIC_LIB=0 \
        -DWITH_PKGCONFIG_DIR=/usr/lib/pkgconfig .
+```
 
-# make package
+5. create package
 
 make package
+
 make package_source
+
 cpack -G DEB
+

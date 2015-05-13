@@ -14,7 +14,9 @@ tar xzf centreon-engine-1.4.11.tar.gz
 
 centreon-engine-1.4.11/script/deb/postinst.in
 
-centreon-engine-1.4.11/buid/CMakeLists
+centreon-engine-1.4.11/conf/resource.cfg.in
+
+centreon-engine-1.4.11/build/CMakeLists
 
 4. configure
 
