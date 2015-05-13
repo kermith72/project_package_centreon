@@ -6,11 +6,15 @@ set -e
 case "$1" in
     configure)
 	if [ "@GROUP@" != "root" ]; then
-	    groupadd -f "@GROUP@"
+            if ! $(grep -E "^@GROUP@:" /etc/group > /dev/null ) ; then
+	        groupadd -f "@GROUP@"
+            fi
 	fi
 
 	if [ "@USER@" != "root" ]; then
-	    useradd -d "$(dirname @PID_FILE@)" -M -N -G "@GROUP@" "@USER@"
+            if ! $(grep -E "^@USER@:" /etc/passwd > /dev/null ) ; then
+	        useradd -d "$(dirname @PID_FILE@)" -M -N -G "@GROUP@" "@USER@"
+            fi
 	fi
 
 	if [ -f "/etc/init.d/centengine" ]; then
@@ -39,8 +43,8 @@ case "$1" in
 
         #add permission /var/lib/centreon-engine/rw
         if [ -d "/var/lib/centreon-engine/rw" ]; then
-            chown -R @user@:@group@ /var/lib/centreon-engine
-	;;
+            chown -R @USER@:@GROUP@ /var/lib/centreon-engine
+        fi
 
         #test /var/log/centreon-engine
         if [ ! -d "/var/log/centreon-engine" ]; then
@@ -49,7 +53,9 @@ case "$1" in
 
         #add permission /var/log/centreon-engine
         if [ -d "/var/log/centreon-engine" ]; then
-            chown @user@:@group@ /var/log/centreon-engine
+            chown @USER@:@GROUP@ /var/log/centreon-engine
+        fi
+
         ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

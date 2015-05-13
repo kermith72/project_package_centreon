@@ -31,6 +31,7 @@ set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 include_directories("${INC_DIR}")
 include_directories("${INC_DIR}/compatibility")
 
+set(DIR_PLUGINS "/usr/lib/nagios/plugins/")
 # Version.
 set(CENTREON_ENGINE_MAJOR 1)
 set(CENTREON_ENGINE_MINOR 4)
@@ -813,7 +814,6 @@ install(DIRECTORY "${INC_DIR}/"
 # project package Centreon
 configure_file("${SCRIPT_DIR}/deb/postinst.in"
     "${SCRIPT_DIR}/deb/postinst")
-
 
 
 set (CPACK_PACKAGE_NAME "centreon-engine")
