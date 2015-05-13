@@ -51,9 +51,19 @@ case "$1" in
             mkdir -p /var/log/centreon-engine
         fi
 
+        #test /var/log/centreon-engine/archives
+        if [ ! -d "/var/log/centreon-engine/archives" ]; then
+            mkdir -p /var/log/centreon-engine/archives
+        fi
+        
+        #test /var/log/centreon-engine/centengine.log
+        if [ ! -f "/var/log/centreon-engine/centengine.log" ]; then
+            touch /var/log/centreon-engine/centengine.log
+        fi
+
         #add permission /var/log/centreon-engine
         if [ -d "/var/log/centreon-engine" ]; then
-            chown @USER@:@GROUP@ /var/log/centreon-engine
+            chown -R @USER@:@GROUP@ /var/log/centreon-engine
         fi
 
         ;;
