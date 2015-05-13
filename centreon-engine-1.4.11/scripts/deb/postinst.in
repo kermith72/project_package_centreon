@@ -16,7 +16,8 @@ case "$1" in
 	if [ -f "/etc/init.d/centengine" ]; then
 	    update-rc.d centengine defaults
 	fi
-
+        
+        # add permission plugins
         if [ -d "/usr/lib/nagios/plugins" ]; then
             chown @USER@:@GROUP@ /usr/lib/nagios/plugins/*
         fi
@@ -31,7 +32,25 @@ case "$1" in
             chmod u+s /usr/lib/nagios/plugins/check_icmp
         fi
 
+        #test /var/lib/centreon-engine/rw
+        if [ ! -d "/var/lib/centreon-engine/rw" ]; then
+            mkdir -p /var/lib/centreon-engine/rw
+        fi
+
+        #add permission /var/lib/centreon-engine/rw
+        if [ -d "/var/lib/centreon-engine/rw" ]; then
+            chown -R @user@:@group@ /var/lib/centreon-engine
 	;;
+
+        #test /var/log/centreon-engine
+        if [ ! -d "/var/log/centreon-engine" ]; then
+            mkdir -p /var/log/centreon-engine
+        fi
+
+        #add permission /var/log/centreon-engine
+        if [ -d "/var/log/centreon-engine" ]; then
+            chown @user@:@group@ /var/log/centreon-engine
+        ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
 	;;
