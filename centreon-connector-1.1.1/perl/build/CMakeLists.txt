@@ -279,6 +279,27 @@ if (WITH_TESTING)
 
 endif ()
 
+# project package Debian
+set (CPACK_PACKAGE_NAME "centreon-perl-connector")
+set (CPACK_PACKAGE_FILE_NAME centreon-perl-connector-${CONNECTOR_PERL_VERSION})
+set (CPACK_GENERATOR "TGZ")
+set (CPACK_PACKAGE_VERSION_MAJOR ${CONNECTOR_PERL_MAJOR})
+set (CPACK_PACKAGE_VERSION_MINOR ${CONNECTOR_PERL_MINOR})
+set (CPACK_PACKAGE_VERSION_PATCH ${CONNECTOR_PERL_PATCH})
+set (CPACK_SOURCE_GENERATOR "TBZ2")
+set (CPACK_SOURCE_PACKAGE_FILE_NAME centreon-perl-connector-${CONNECTOR_PERL_VERSION})
+set (CPACK_SOURCE_IGNORE_FILES "~$" ".bz2$" ".gz$")
+set (CPACK_PACKAGE_CONTACT "Eric Coquard <eric.coquard@gmail.com>")
+set (CPACK_DEBIAN_PACKAGE_DEPENDS "centreon-clib (>= 1.4.2)")
+set (CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+set (CPACK_DEBIAN_PACKAGE_DESCRIPTION "Centreon Perl Connector speeds up execution of Perl scripts when used along Centreon Engine")
+set (CPACK_DEBIAN_PACKAGE_SECTION "net")
+set (CPACK_DEBIAN_PACKAGE_PRIORITY "extra")
+
+include (CPack)
+
+
+
 # Summary.
 message(STATUS "")
 message(STATUS "Configuration Summary")

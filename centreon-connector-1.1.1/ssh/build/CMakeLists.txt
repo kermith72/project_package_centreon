@@ -610,6 +610,25 @@ if (WITH_TESTING)
 
 endif ()
 
+# add Project Package Debian
+set (CPACK_PACKAGE_NAME "centreon-ssh-connector")
+set (CPACK_PACKAGE_FILE_NAME centreon-ssh-connector-${CONNECTOR_SSH_VERSION})
+set (CPACK_GENERATOR "TGZ")
+set (CPACK_PACKAGE_VERSION_MAJOR ${CONNECTOR_SSH_MAJOR})
+set (CPACK_PACKAGE_VERSION_MINOR ${CONNECTOR_SSH_MINOR})
+set (CPACK_PACKAGE_VERSION_PATCH ${CONNECTOR_SSH_PATCH})
+set (CPACK_SOURCE_GENERATOR "TBZ2")
+set (CPACK_SOURCE_PACKAGE_FILE_NAME centreon-ssh-connector-${CONNECTOR_SSH_VERSION})
+set (CPACK_SOURCE_IGNORE_FILES "~$" ".bz2$" ".gz$")
+set (CPACK_PACKAGE_CONTACT "Eric Coquard <eric.coquard@gmail.com>")
+set (CPACK_DEBIAN_PACKAGE_DEPENDS "centreon-clib (>= 1.4.2)")
+set (CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+set (CPACK_DEBIAN_PACKAGE_DESCRIPTION "Centreon SSH Connector speeds up execution checks over SSH when used along Centreon Engine")
+set (CPACK_DEBIAN_PACKAGE_SECTION "net")
+set (CPACK_DEBIAN_PACKAGE_PRIORITY "extra")
+
+include (CPack)
+
 # Summary.
 message(STATUS "")
 message(STATUS "Configuration Summary")
