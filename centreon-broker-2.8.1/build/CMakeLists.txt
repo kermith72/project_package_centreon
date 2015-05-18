@@ -1,25 +1,3 @@
-kip to content
-This repository
-
-    Explore
-    Gist
-    Blog
-    Help
-
-    @kermith72 kermith72
-
-2
-1
-
-    0
-
-kermith72/project_package_centreon
-
-project_package_centreon/centreon-broker-2.8.1/build/CMakeLists.txt
-@kermith72 kermith72 3 days ago add package centreon-broker
-
-1 contributor
-1519 lines (1423 sloc) 55.0 kb
 ##
 ## Copyright 2009-2014 Merethis
 ##
