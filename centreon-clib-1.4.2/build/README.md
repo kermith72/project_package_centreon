@@ -11,7 +11,7 @@ tar xzf centreon-clib-1.4.2.tar.gz
 3 copy files from github
 
 
-centreon-clib-1.4.2/build/CMakeLists.txt
+centreon-clib-1.4.2/build/package.cmake
 
 4 configure
 
@@ -21,6 +21,7 @@ cmake  \
        -DWITH_PREFIX=/usr  \
        -DWITH_SHARED_LIB=1 \
        -DWITH_STATIC_LIB=0 \
+       -DWITH_PACKAGE_DEB=1 \
        -DWITH_PKGCONFIG_DIR=/usr/lib/pkgconfig .
 ```
 
@@ -28,7 +29,8 @@ cmake  \
 
 make package
 
+and package source
+
 make package_source
 
-cpack -G DEB
 
