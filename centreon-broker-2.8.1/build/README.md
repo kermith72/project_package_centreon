@@ -11,7 +11,9 @@ tar xzf centreon-broker-2.8.1.tar.gz
 3 copy files from github
 
 centreon-broker-2.8.1/build/package.cmake
+
 centreon-broker-2.8.1/script/deb/postinst.in
+
 centreon-broker-2.8.1/script/deb/prerm
 
 4 configure with option WITH_PACKAGE_DEB
