@@ -1,3 +1,25 @@
+kip to content
+This repository
+
+    Explore
+    Gist
+    Blog
+    Help
+
+    @kermith72 kermith72
+
+2
+1
+
+    0
+
+kermith72/project_package_centreon
+
+project_package_centreon/centreon-broker-2.8.1/build/CMakeLists.txt
+@kermith72 kermith72 3 days ago add package centreon-broker
+
+1 contributor
+1519 lines (1423 sloc) 55.0 kb
 ##
 ## Copyright 2009-2014 Merethis
 ##
@@ -877,7 +899,6 @@ install(CODE "
       file(MAKE_DIRECTORY \"\$ENV{DESTDIR}\${path}\")
     endif ()
   endfunction()
-
   function(touch_chown user group file)
     if (APPLE OR (UNIX AND NOT CYGWIN))
       if (NOT EXISTS \"\$ENV{DESTDIR}\${file}\")
@@ -888,7 +909,6 @@ install(CODE "
       file(WRITE \"\$ENV{DESTDIR}\${file}\" \"\")
     endif ()
   endfunction()
-
   mkdir_chown(\"${USER}\" \"${GROUP}\" \"${CMAKE_INSTALL_PREFIX}\")
   mkdir_chown(\"${USER}\" \"${GROUP}\" \"${PREFIX_BIN}\")
   mkdir_chown(\"${USER}\" \"${GROUP}\" \"${PREFIX_LIB}\")
