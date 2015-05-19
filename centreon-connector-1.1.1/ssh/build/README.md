@@ -11,7 +11,7 @@ tar xzf centreon-connector-1.1.1.tar.gz
 3 copy files from github
 
 
-centreon-connector-1.1.1/ssh/build/CMakeLists.txt
+centreon-connector-1.1.1/ssh/build/package.cmake
 
 4 configure
 
@@ -20,6 +20,7 @@ cmake  \
   -DWITH_PREFIX=/usr \
   -DWITH_PREFIX_BINARY=/usr/lib/centreon-connector  \
   -DWITH_CENTREON_CLIB_INCLUDE_DIR=/usr/include \
+  -DWITH_PACKAGE_DEB=1 \
   -DWITH_TESTING=0 .
 ```
 
@@ -27,7 +28,8 @@ cmake  \
 
 make package
 
+and package source
+
 make package_source
 
-cpack -G DEB
 
