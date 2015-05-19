@@ -807,35 +807,6 @@ install(DIRECTORY "${INC_DIR}/"
   PATTERN "${INC_DIR}/compatibility/" EXCLUDE
 )
 
-#
-# Packaging.
-#
-
-# project package Centreon
-configure_file("${SCRIPT_DIR}/deb/postinst.in"
-    "${SCRIPT_DIR}/deb/postinst")
-
-
-set (CPACK_PACKAGE_NAME "centreon-engine")
-
-set (CPACK_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}-${CENTREON_ENGINE_VERSION})
-set (CPACK_GENERATOR "TGZ")
-set (CPACK_PACKAGE_VERSION_MAJOR ${CENTREON_ENGINE_MAJOR})
-set (CPACK_PACKAGE_VERSION_MINOR ${CENTREON_ENGINE_MINOR})
-set (CPACK_PACKAGE_VERSION_PATCH ${CENTREON_ENGINE_PATCH})
-set (CPACK_SOURCE_GENERATOR "TBZ2")
-set (CPACK_SOURCE_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}-${CENTREON_ENGINE_VERSION})
-set (CPACK_SOURCE_IGNORE_FILES "~$" ".bz2$" ".gz$")
-set (CPACK_PACKAGE_CONTACT "Eric Coquard <eric.coquard@gmail.com>")
-set (CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
-set (CPACK_DEBIAN_PACKAGE_DEPENDS "centreon-clib (>= 1.4.2), openssl, nagios-plugins-basic")
-set (CPACK_DEBIAN_PACKAGE_RECOMMENDS "centreon-connector (>= 1.1.1), centreon-plugins")
-set (CPACK_DEBIAN_PACKAGE_DESCRIPTION "Centreon Engine is an Open Source system and network monitoring application")
-set (CPACK_DEBIAN_PACKAGE_SECTION "net")
-set (CPACK_DEBIAN_PACKAGE_PRIORITY "extra")
-set (CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${SCRIPT_DIR}/deb/prerm;${SCRIPT_DIR}/deb/postinst")
-
-include (CPack)
 
 
 include("package.cmake")

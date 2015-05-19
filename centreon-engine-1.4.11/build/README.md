@@ -16,7 +16,7 @@ centreon-engine-1.4.11/script/deb/postinst.in
 
 centreon-engine-1.4.11/conf/resource.cfg.in
 
-centreon-engine-1.4.11/build/CMakeLists
+centreon-engine-1.4.11/build/package.cmake
 
 4 configure
 
@@ -36,6 +36,7 @@ cmake  \
     -DWITH_PKGCONFIG_SCRIPT=1 \
     -DWITH_PKGCONFIG_DIR=/usr/lib/pkgconfig  \
     -DWITH_TESTING=0  \
+    -DWITH_PACKAGE_DEB=1 \
     -DWITH_WEBSERVICE=1 .
 ```
 
@@ -43,8 +44,9 @@ cmake  \
 
 make package
 
+and package source
+
 make package_source
 
-cpack -G DEB
 
 
