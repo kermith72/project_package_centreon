@@ -43,7 +43,7 @@ case "$1" in
 
         #add permission /var/lib/centreon-engine/rw
         if [ -d "/var/lib/centreon-engine/rw" ]; then
-            chown -R @USER@:@GROUP@ /var/lib/centreon-engine
+            chown -R @USER@:@GROUP@ /var/lib/centreon-engine/rw
         fi
 
         #test /var/log/centreon-engine
