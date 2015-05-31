@@ -204,6 +204,9 @@ if (WITH_DAEMONS)
   install(PROGRAMS "${PROJECT_SOURCE_DIR}/script/cbd.init"
     DESTINATION "${STARTUP_DIR}"
     RENAME "cbd")
+  install(PROGRAMS "${PROJECT_SOURCE_DIR}/script/centreon-broker.logrotate"
+    DESTINATION "/etc/logrotate.d"
+    RENAME "cbd")
 endif ()
 
 # Monitoring engine (for testing).
