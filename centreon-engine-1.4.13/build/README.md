@@ -14,6 +14,8 @@ tar xzf centreon-engine-1.4.13.tar.gz
 
 centreon-engine-1.4.13/script/deb/postinst.in
 
+centreon-engine-1.4.13/script/deb/conffiles
+
 centreon-engine-1.4.13/conf/resource.cfg.in
 
 centreon-engine-1.4.13/build/package.cmake
