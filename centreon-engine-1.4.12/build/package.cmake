@@ -31,7 +31,8 @@ if (WITH_PACKAGE_SH
     OR WITH_PACKAGE_RPM
     OR WITH_PACKAGE_NSIS)
   # Default settings.
-  set(CPACK_PACKAGE_VENDOR "Merethis")
+  set(CPACK_PACKAGE_VENDOR "Centreon")
+  set(CPACK_PACKAGE_NAME "centreon-engine")
   set(CPACK_PACKAGE_VERSION_MAJOR "${CENTREON_ENGINE_MAJOR}")
   set(CPACK_PACKAGE_VERSION_MINOR "${CENTREON_ENGINE_MINOR}")
   set(CPACK_PACKAGE_VERSION_PATCH "${CENTREON_ENGINE_PATCH}")
@@ -42,7 +43,11 @@ if (WITH_PACKAGE_SH
   set(CPACK_PACKAGE_INSTALL_DIRECTORY "centreon-engine")
   set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/license.txt")
   set(CPACK_PACKAGE_CONTACT
-    "Matthieu Kermagoret <mkermagoret@merethis.com>")
+    "Eric Coquard <eric.coquard@gmail.com>")
+  set (CPACK_SOURCE_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}-${CENTREON_ENGINE_VERSION})
+  set (CPACK_SOURCE_IGNORE_FILES "~$" ".bz2$" ".gz$")
+  set (CPACK_SOURCE_TZ OFF)
+
 
   # Generators.
   unset(PACKAGE_LIST)
@@ -62,6 +67,11 @@ if (WITH_PACKAGE_SH
     list(APPEND CPACK_GENERATOR "DEB")
     list(APPEND PACKAGE_LIST "DEB package (.deb)")
     set(CPACK_DEBIAN_PACKAGE_SECTION "net")
+    set (CPACK_DEBIAN_PACKAGE_PRIORITY "extra")
+    set (CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+    set (CPACK_DEBIAN_PACKAGE_SUGGESTS "centreon-broker (>= 2.8.2), centreon-connector-perl (>= 1.1.1), centreon-connector-ssh (>= 1.1.1), centreon-plugins")
+    set (CPACK_DEBIAN_PACKAGE_CONFLICTS "nagios3, icinga")
+    set (CPACK_DEBIAN_PACKAGE_DEPENDS "centreon-clib (>= 1.4.2), openssl, nagios-plugins-basic")
     configure_file("${SCRIPT_DIR}/deb/postinst.in" "${SCRIPT_DIR}/deb/postinst")
     set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA
       "${SCRIPT_DIR}/deb/postinst"

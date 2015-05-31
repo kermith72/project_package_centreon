@@ -6,16 +6,61 @@ set -e
 case "$1" in
     configure)
 	if [ "@GROUP@" != "root" ]; then
-	    groupadd -f "@GROUP@"
+            if ! $(grep -E "^@GROUP@:" /etc/group > /dev/null ) ; then
+	        groupadd -f "@GROUP@"
+            fi
 	fi
 
 	if [ "@USER@" != "root" ]; then
-	    useradd -d "$(dirname @PID_FILE@)" -M -N -G "@GROUP@" "@USER@"
+            if ! $(grep -E "^@USER@:" /etc/passwd > /dev/null ) ; then
+	        useradd -d "$(dirname @PID_FILE@)" -M -N -G "@GROUP@" "@USER@"
+            fi
 	fi
 
 	if [ -f "/etc/init.d/centengine" ]; then
 	    update-rc.d centengine defaults
 	fi
+
+        if [ -f "/usr/lib/nagios/plugins/check_dhcp" ]; then
+            chown root /usr/lib/nagios/plugins/check_dhcp
+            chmod u+s /usr/lib/nagios/plugins/check_dhcp
+        fi
+
+        if [ -f "/usr/lib/nagios/plugins/check_icmp" ]; then
+            chown root /usr/lib/nagios/plugins/check_icmp
+            chmod u+s /usr/lib/nagios/plugins/check_icmp
+        fi
+
+        #test /var/lib/centreon-engine/rw
+        if [ ! -d "/var/lib/centreon-engine/rw" ]; then
+            mkdir -p /var/lib/centreon-engine/rw
+        fi
+
+        #add permission /var/lib/centreon-engine/rw
+        if [ -d "/var/lib/centreon-engine/rw" ]; then
+            chown -R @USER@:@GROUP@ /var/lib/centreon-engine/rw
+        fi
+
+        #test /var/log/centreon-engine
+        if [ ! -d "/var/log/centreon-engine" ]; then
+            mkdir -p /var/log/centreon-engine
+        fi
+
+        #test /var/log/centreon-engine/archives
+        if [ ! -d "/var/log/centreon-engine/archives" ]; then
+            mkdir -p /var/log/centreon-engine/archives
+        fi
+        
+        #test /var/log/centreon-engine/centengine.log
+        if [ ! -f "/var/log/centreon-engine/centengine.log" ]; then
+            touch /var/log/centreon-engine/centengine.log
+        fi
+
+        #add permission /var/log/centreon-engine
+        if [ -d "/var/log/centreon-engine" ]; then
+            chown -R @USER@:@GROUP@ /var/log/centreon-engine
+        fi
+
 	;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
