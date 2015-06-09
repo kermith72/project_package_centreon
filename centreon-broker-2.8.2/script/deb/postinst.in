@@ -24,6 +24,16 @@ case "$1" in
             fi
 	fi
 
+        if [ -f "/var/lib/centreon-broker" ]; then
+            chown @USER@:@GROUP@ /var/lib/centreon-broker
+            chmod 755 /var/lib/centreon-broker
+        fi
+
+        if [ -f "/var/log/centreon-broker" ]; then
+            chown @USER@:@GROUP@ /var/log/centreon-broker
+            chmod 755 /var/log/centreon-broker
+        fi
+
 	if [ -f "/etc/init.d/cbd" ]; then
 	    update-rc.d cbd defaults
 	fi
