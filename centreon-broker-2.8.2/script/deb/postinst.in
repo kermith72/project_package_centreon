@@ -20,7 +20,7 @@ case "$1" in
 
 	if [ "@USER@" != "root" ]; then
             if ! $(grep -E "^@USER@:" /etc/passwd > /dev/null ) ; then
-	        useradd -d "/var/spool/centreon-broker" -m -N -G "@GROUP@" "@USER@"
+	        useradd -d "/var/spool/centreon-broker" -m -N -g "@GROUP@" -s /bin/bash "@USER@"
             fi
 	fi
 
