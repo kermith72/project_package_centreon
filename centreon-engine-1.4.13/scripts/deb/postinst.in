@@ -13,7 +13,7 @@ case "$1" in
 
 	if [ "@USER@" != "root" ]; then
             if ! $(grep -E "^@USER@:" /etc/passwd > /dev/null ) ; then
-	        useradd -d "$(dirname @PID_FILE@)" -M -N -G "@GROUP@" "@USER@"
+	        useradd -d "/var/lib/@USER@" -M -g "@GROUP@" -s /bin/bash "@USER@"
             fi
 	fi
 
@@ -36,9 +36,10 @@ case "$1" in
             mkdir -p /var/lib/centreon-engine/rw
         fi
 
-        #add permission /var/lib/centreon-engine/rw
-        if [ -d "/var/lib/centreon-engine/rw" ]; then
-            chown -R @USER@:@GROUP@ /var/lib/centreon-engine/rw
+        #add permission /var/lib/centreon-engine
+        if [ -d "/var/lib/centreon-engine" ]; then
+            chown -R @USER@:@GROUP@ /var/lib/centreon-engine
+            chmod -R 775 /var/lib/centreon-engine
         fi
 
         #test /var/log/centreon-engine
