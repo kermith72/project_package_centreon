@@ -31,6 +31,12 @@ case "$1" in
             chmod u+s /usr/lib/nagios/plugins/check_icmp
         fi
 
+        #add permission /etc/centreon-engine
+        if [ -d "/etc/centreon-engine" ]; then
+            chown -R @USER@:@GROUP@ /etc/centreon-engine
+            chmod 775 /etc/centreon-engine
+        fi
+
         #test /var/lib/centreon-engine/rw
         if [ ! -d "/var/lib/centreon-engine/rw" ]; then
             mkdir -p /var/lib/centreon-engine/rw
