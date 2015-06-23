@@ -24,6 +24,11 @@ case "$1" in
             fi
 	fi
 
+        if [ -d "/etc/centreon-broker" ]; then
+            chown -R @USER@:@GROUP@ /etc/centreon-broker
+            chmod 775 /etc/centreon-broker
+        fi
+
         if [ -d "/var/lib/centreon-broker" ]; then
             chown @USER@:@GROUP@ /var/lib/centreon-broker
             chmod 775 /var/lib/centreon-broker
