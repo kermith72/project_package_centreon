@@ -31,7 +31,8 @@ if (WITH_PACKAGE_SH
     OR WITH_PACKAGE_RPM
     OR WITH_PACKAGE_NSIS)
   # Default settings.
-  set(CPACK_PACKAGE_VENDOR "Merethis")
+  set (CPACK_PACKAGE_NAME "centreon-broker")
+  set(CPACK_PACKAGE_VENDOR "Centreon")
   set(CPACK_PACKAGE_VERSION_MAJOR "${CENTREON_BROKER_MAJOR}")
   set(CPACK_PACKAGE_VERSION_MINOR "${CENTREON_BROKER_MINOR}")
   set(CPACK_PACKAGE_VERSION_PATCH "${CENTREON_BROKER_PATCH}")
@@ -42,7 +43,7 @@ if (WITH_PACKAGE_SH
   set(CPACK_PACKAGE_INSTALL_DIRECTORY "centreon-broker")
   set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/license.txt")
   set(CPACK_PACKAGE_CONTACT
-    "Matthieu Kermagoret <mkermagoret@merethis.com>")
+    "Eric Coquard <eric.coquard@gmail.com>")
 
   # Generators.
   unset(PACKAGE_LIST)
@@ -61,6 +62,12 @@ if (WITH_PACKAGE_SH
   if (WITH_PACKAGE_DEB)
     list(APPEND CPACK_GENERATOR "DEB")
     list(APPEND PACKAGE_LIST "DEB package (.deb)")
+    configure_file("${PROJECT_SOURCE_DIR}/script/deb/postinst.in" "${PROJECT_SOURCE_DIR}/script/deb/postinst")
+    set (CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+    set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA
+      "${PROJECT_SOURCE_DIR}/script/deb/postinst"
+      "${PROJECT_SOURCE_DIR}/script/deb/prerm")
+    set (CPACK_DEBIAN_PACKAGE_PRIORITY "extra")
     set(CPACK_DEBIAN_PACKAGE_SECTION "net")
   endif ()
   if (WITH_PACKAGE_RPM)
