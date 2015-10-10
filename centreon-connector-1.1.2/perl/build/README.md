@@ -1,0 +1,34 @@
+In order to install package Centreon-perl-connector
+
+1 Install pre-requisites
+
+apt-get install libperl-dev -y
+
+2 Unzip files
+
+tar xzf centreon-connector-1.1.2.tar.gz
+
+3 copy files from github
+
+centreon-connector-1.1.2/perl/build/package.cmake
+
+4 configure
+
+```
+cmake  \
+  -DWITH_PREFIX=/usr \
+  -DWITH_PREFIX_BINARY=/usr/lib/centreon-connector  \
+  -DWITH_CENTREON_CLIB_INCLUDE_DIR=/usr/include \
+  -DWITH_PACKAGE_DEB=1 \
+  -DWITH_TESTING=0 .
+```
+
+5 create package
+
+make package
+
+and package source
+
+make package_source
+
+
