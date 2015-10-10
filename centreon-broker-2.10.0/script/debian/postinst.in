@@ -1,0 +1,58 @@
+i#!/bin/sh
+
+# Abort if any command returns an error value
+set -e
+
+case "$1" in
+    configure)
+        if [ "@GROUP@" != "root" ]; then
+            if ! $(grep -E "^@GROUP@:" /etc/group > /dev/null ) ; then
+                groupadd -f "@GROUP@"
+            fi
+        fi
+
+        if [ "@GROUP@" != "root" ]; then
+            if $(grep -E "^centreon-engine:" /etc/passwd > /dev/null ) ; then
+                usermod -aG "@GROUP@" "centreon-engine"
+            fi
+        fi
+
+
+        if [ "@USER@" != "root" ]; then
+            if ! $(grep -E "^@USER@:" /etc/passwd > /dev/null ) ; then
+                useradd -d "/var/lib/centreon-broker" -m -N -g "@GROUP@" -s /bin/bash "@USER@"
+            fi
+        fi
+
+        if [ -d "/etc/centreon-broker" ]; then
+            chown -R @USER@:@GROUP@ /etc/centreon-broker
+            chmod 775 /etc/centreon-broker
+        fi
+
+        if [ -d "/var/lib/centreon-broker" ]; then
+            chown @USER@:@GROUP@ /var/lib/centreon-broker
+            chmod 775 /var/lib/centreon-broker
+        fi
+
+        if [ -d "/var/log/centreon-broker" ]; then
+            chown @USER@:@GROUP@ /var/log/centreon-broker
+            chmod 775 /var/log/centreon-broker
+        fi
+
+        if [ -f "/etc/init.d/cbd" ]; then
+            update-rc.d cbd defaults
+        fi
+
+
+        ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+        ;;
+
+    *)
+        echo "$0: called with unknown argument" 1>&2
+        exit 0
+        ;;
+esac
+
+exit 0
+
