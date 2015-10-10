@@ -68,12 +68,11 @@ if (WITH_PACKAGE_SH
     set(CPACK_DEBIAN_PACKAGE_SECTION "net")
     set (CPACK_DEBIAN_PACKAGE_PRIORITY "extra")
     set (CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
-    set (CPACK_DEBIAN_PACKAGE_SUGGESTS "centreon-broker (>= 2.8.2), centreon-connector-perl (>= 1.1.1), centreon-connector-ssh (>= 1.1.1), centreon-plugins")
+    set (CPACK_DEBIAN_PACKAGE_SUGGESTS "centreon-broker (>= 2.10.0), centreon-connector-perl (>= 1.1.2), centreon-connector-ssh (>= 1.1.2), centreon-plugins")
     set (CPACK_DEBIAN_PACKAGE_CONFLICTS "nagios3, icinga")
     set (CPACK_DEBIAN_PACKAGE_DEPENDS "centreon-clib (>= 1.4.2), openssl, nagios-plugins-basic")
     configure_file("${SCRIPT_DIR}/deb/postinst.in" "${SCRIPT_DIR}/deb/postinst")
     set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA
-      "${SCRIPT_DIR}/deb/conffiles"
       "${SCRIPT_DIR}/deb/postinst"
       "${SCRIPT_DIR}/deb/prerm")
   endif ()

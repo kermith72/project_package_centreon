@@ -30,7 +30,6 @@ set(SCRIPT_DIR "${PROJECT_SOURCE_DIR}/scripts")
 set(SRC_DIR "${PROJECT_SOURCE_DIR}/src")
 include_directories("${INC_DIR}")
 include_directories("${INC_DIR}/compatibility")
-set(DIR_PLUGINS "/usr/lib/nagios/plugins/")
 
 # Version.
 set(CENTREON_ENGINE_MAJOR 1)

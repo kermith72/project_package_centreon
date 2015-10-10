@@ -7,19 +7,24 @@ case "$1" in
     configure)
 	if [ "@GROUP@" != "root" ]; then
 	    if ! $(grep -E "^@GROUP@:" /etc/group > /dev/null ) ; then
-               groupadd -f "@GROUP@"
+                groupadd -f "@GROUP@"
             fi
-	fi
+        fi
 
 	if [ "@USER@" != "root" ]; then
             if ! $(grep -E "^@USER@:" /etc/passwd > /dev/null ) ; then
-               useradd -d "/var/lib/centreon-engine" -M -g "@GROUP@" -s /bin/bash "@USER@"
+                useradd -d "/var/lib/@USER@" -M -g "@GROUP@" -s /bin/bash "@USER@"
             fi
 	fi
 
 	if [ -f "/etc/init.d/centengine" ]; then
 	    update-rc.d centengine defaults
 	fi
+
+        # add permission plugins
+        if [ -d "/usr/lib/nagios/plugins" ]; then
+            chown @USER@:@GROUP@ /usr/lib/nagios/plugins/*
+        fi
 
         if [ -f "/usr/lib/nagios/plugins/check_dhcp" ]; then
             chown root /usr/lib/nagios/plugins/check_dhcp
@@ -31,42 +36,43 @@ case "$1" in
             chmod u+s /usr/lib/nagios/plugins/check_icmp
         fi
 
-        #add permission directory /var/lib/centreon-engine
-        if [ -d "/var/lib/centreon-engine" ]; then
-            chown -R @USER@:@GROUP@ /var/lib/centreon-engine
-            chmod -R 775 /var/lib/centreon-engine
-        fi
-
-        #create directory /etc/centreon-engine
         #add permission directory /etc/centreon-engine
         if [ -d "/etc/centreon-engine" ]; then
-            chown -R @USER@:@GROUP@ /etc/centreon-engine
+            chown -R centreon-engine:centreon-engine /etc/centreon-engine
             chmod 775 /etc/centreon-engine
         fi
 
-        #create directory /var/lib/centreon-engine/rw
-        #add permission directory /var/lib/centreon-engine/rw
+        #test /var/lib/centreon-engine/rw
         if [ ! -d "/var/lib/centreon-engine/rw" ]; then
             mkdir -p /var/lib/centreon-engine/rw
-            chown -R @USER@:@GROUP@ /var/lib/centreon-engine/rw
         fi
 
-        #create directory /var/log/centreon-engine
-        #add permission directory /var/log/centreon-engine
+        #add permission /var/lib/centreon-engine/rw
+        if [ -d "/var/lib/centreon-engine/rw" ]; then
+            chown -R @USER@:@GROUP@ /var/lib/centreon-engine
+        fi
+
+        #test /var/log/centreon-engine
         if [ ! -d "/var/log/centreon-engine" ]; then
             mkdir -p /var/log/centreon-engine
-            chown -R @USER@:@GROUP@ /var/log/centreon-engine
         fi
 
-        #create directory /var/log/centreon-engine/archives
+        #test /var/log/centreon-engine/archives
         if [ ! -d "/var/log/centreon-engine/archives" ]; then
             mkdir -p /var/log/centreon-engine/archives
         fi
-        
-        #create file /var/log/centreon-engine/centengine.log
+
+
+        #test /var/log/centreon-engine/centengine.log
         if [ ! -f "/var/log/centreon-engine/centengine.log" ]; then
             touch /var/log/centreon-engine/centengine.log
         fi
+
+        #add permission /var/log/centreon-engine
+        if [ -d "/var/log/centreon-engine" ]; then
+            chown -R @USER@:@GROUP@ /var/log/centreon-engine
+        fi
+
 
 	;;
 
