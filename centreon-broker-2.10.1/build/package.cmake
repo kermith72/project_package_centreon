@@ -31,6 +31,7 @@ if (WITH_PACKAGE_SH
     OR WITH_PACKAGE_NSIS)
   # Default settings.
   set(CPACK_PACKAGE_VENDOR "Centreon")
+  set (CPACK_PACKAGE_NAME "centreon-broker")
   set(CPACK_PACKAGE_VERSION_MAJOR "${CENTREON_BROKER_MAJOR}")
   set(CPACK_PACKAGE_VERSION_MINOR "${CENTREON_BROKER_MINOR}")
   set(CPACK_PACKAGE_VERSION_PATCH "${CENTREON_BROKER_PATCH}")
@@ -41,7 +42,10 @@ if (WITH_PACKAGE_SH
   set(CPACK_PACKAGE_INSTALL_DIRECTORY "centreon-broker")
   set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
   set(CPACK_PACKAGE_CONTACT
-    "Matthieu Kermagoret <mkermagoret@centreon.com>")
+    "Eric Coquard <eric.coquard@gmail.com>")
+  set (CPACK_SOURCE_PACKAGE_FILE_NAME ${CPACK_PACKAGE_NAME}-${CENTREON_BROKER_VERSION})
+  set (CPACK_SOURCE_IGNORE_FILES "~$" ".bz2$" ".gz$")
+  set (CPACK_SOURCE_TZ OFF)
 
   # Generators.
   unset(PACKAGE_LIST)
@@ -61,6 +65,14 @@ if (WITH_PACKAGE_SH
     list(APPEND CPACK_GENERATOR "DEB")
     list(APPEND PACKAGE_LIST "DEB package (.deb)")
     set(CPACK_DEBIAN_PACKAGE_SECTION "net")
+    set (CPACK_DEBIAN_PACKAGE_DEPENDS "centreon-clib (>= 1.4.2)")
+    set (CPACK_DEBIAN_PACKAGE_RECOMMENDS "centreon-engine (>= 1.4.15)")
+    configure_file("${PROJECT_SOURCE_DIR}/script/debian/postinst.in" "${PROJECT_SOURCE_DIR}/script/debian/postinst")
+    set (CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+    set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA
+      "${PROJECT_SOURCE_DIR}/script/debian/postinst"
+      "${PROJECT_SOURCE_DIR}/script/debian/prerm")
+    set (CPACK_DEBIAN_PACKAGE_PRIORITY "extra")
   endif ()
   if (WITH_PACKAGE_RPM)
     list(APPEND CPACK_GENERATOR "RPM")
