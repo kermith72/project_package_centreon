@@ -1,4 +1,4 @@
-i#!/bin/sh
+#!/bin/sh
 
 # Abort if any command returns an error value
 set -e
