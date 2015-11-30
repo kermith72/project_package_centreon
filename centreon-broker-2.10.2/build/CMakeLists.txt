@@ -183,6 +183,9 @@ if (WITH_DAEMONS)
     install(FILES "${PROJECT_SOURCE_DIR}/script/cbd.default"
       DESTINATION "/etc/default"
       RENAME "cbd")
+    install(PROGRAMS "${PROJECT_SOURCE_DIR}/script/centreon-broker.logrotate"
+      DESTINATION "/etc/logrotate.d"
+      RENAME "logrotate")
   else ()
     configure_file("${PROJECT_SOURCE_DIR}/script/other/cbd.init.d.in"
       "${PROJECT_SOURCE_DIR}/script/cbd.init"
